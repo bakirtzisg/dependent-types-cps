@@ -3,17 +3,27 @@
 % margins
 \usepackage[letterpaper,left=1.5in,right=1.5in,top=1in,bottom=1in]{geometry}
 \RequirePackage[l2tabu, orthodox]{nag}
-\usepackage{amsmath,amsthm}
-\usepackage{stmaryrd}
-
-\usepackage{amsfonts}
 
 \usepackage{setspace}
 \setstretch{1.2}
 
 \RequirePackage[T1]{fontenc}
-\RequirePackage[tt=false, type1=true]{libertine}
-\RequirePackage[varqu]{zi4}
-\RequirePackage[libertine]{newtxmath}
+\usepackage[ttscale=.875]{libertine}
+\usepackage[scaled=0.96]{zi4}
 
+\usepackage{sansmath}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+
+% smaller headings
 \usepackage[small]{titlesec}
+
+% biber
+\usepackage[numbers]{natbib}
+
+% figure caption
+\usepackage[labelsep=period]{caption}
+\renewcommand{\captionfont}{\small\sffamily}
+\renewcommand{\captionlabelfont}{\small\sffamily\bfseries}
+
+% references
+\usepackage{cleveref}
