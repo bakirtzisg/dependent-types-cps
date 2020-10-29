@@ -27,3 +27,150 @@
 
 % references
 \usepackage{cleveref}
+
+% math abbreviations
+
+\newcommand{\ca}{\mathbf}
+\newcommand{\inp}{\mathrm{in}}
+\newcommand{\out}{\mathrm{out}}
+
+% tikz stuff
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,decorations.pathreplacing,decorations.pathmorphing,shapes.arrows,decorations.markings,arrows.meta,calc,fit,quotes,cd,math,decorations.markings,arrows,backgrounds,shapes.geometric,shapes}
+
+\newcommand{\twocell}[3][]{\arrow[draw=none,to path={(dom#2.center)--(cod#2.center)\tikztonodes}]{}[anchor=center,#1]{\Downarrow #3}}
+\newcommand{\twocellalt}[3][]{\arrow[draw=none,to path={(dom#2.center)--(cod#2.center)\tikztonodes}]{}[anchor=center,#1]{#3}}
+\newcommand{\twocellA}[2][]{\twocell[#1]{A}{#2}}
+\newcommand{\twocellB}[2][]{\twocell[#1]{B}{#2}}
+\newcommand{\twocellC}[2][]{\twocell[#1]{C}{#2}}
+\newcommand{\twocellD}[2][]{\twocell[#1]{D}{#2}}
+\newcommand{\twocellE}[2][]{\twocell[#1]{E}{#2}}
+\newcommand{\twocellF}[2][]{\twocell[#1]{F}{#2}}
+
+\newcommand{\SmallBox}[3]
+{\begin{tikzpicture}[oriented WD, baseline=-2.5pt, bb Small]
+\node[inner sep=.1cm] [bb={1}{1}] (X) {$\scriptstyle #3$};
+\draw[label] node[left=.1 of X_in1] (Y) {$#1$}
+             node[right=.1 of X_out1] {$#2$};
+\end{tikzpicture}}
+
+\newcommand{\SmallBoxTwo}[4]
+{\begin{tikzpicture}[oriented WD, baseline=-2.5pt, bb Small]
+\node[inner sep=.1cm] [bb={2}{1}] (X) {$\scriptstyle #4$};
+\draw[label] node[left=.1 of X_in1] (Y) {$#1$}
+node[left=.1 of X_in2] (Y) {$#2$}
+node[right=.1 of X_out1] {$#3$};
+\end{tikzpicture}}
+
+\newcommand{\SmallBoxThree}[5]
+{\begin{tikzpicture}[oriented WD, baseline=-2.5pt, bb Small]
+\node[inner sep=.1cm] [bb={3}{1}] (X) {$\scriptstyle #5$};
+\draw[label] node[left=.1 of X_in1] (Y) {$#1$}
+node[left=.1 of X_in2] (Y) {$#2$}
+node[left=.1 of X_in3] (Y) {$#3$}
+node[right=.1 of X_out1] {$#4$};
+\end{tikzpicture}}
+
+\newcommand*{\cocolon}{% colon with spacing for backwards arrows
+  \nobreak
+  \mskip6mu plus1mu
+  \mathpunct{}%
+  \nonscript
+  \mkern-\thinmuskip
+  {:}%
+  \mskip2mu
+  \relax
+}
+
+\tikzcdset{%changes the tip of all arrows -> in diagrams to a smaller, prettier one
+   arrow style=tikz,
+   diagrams={>={Classical TikZ Rightarrow[angle=63:4pt, line width=.6pt]}},
+   arrows={semithick}
+}
+
+\tikzset{
+  tick/.style={postaction={
+    decorate,
+    decoration={markings, mark=at position 0.5 with {\draw[-] (0,.4ex) -- (0,-.4ex);}}}
+  },
+  tickx/.style={
+    postaction={ decorate,
+      decoration={markings,
+        mark=at position 0.5 with {
+          \fill circle [radius=.28ex];
+%         \draw[-] (-.35ex,-.35ex) -- (.35ex,.35ex);
+%         \draw[-] (-.35ex,.35ex) -- (.35ex,-.35ex);
+        }
+      }
+    }
+  }
+}
+\newcommand{\tickar}
+{\begin{tikzcd}[baseline=-0.5ex,cramped,sep=small,ampersand replacement=\&]{}\ar[r,tick]\&{}\end{tikzcd}}
+\tikzset{
+   dom/.style={append after command={coordinate[alias=dom#1]}},
+   domA/.style={dom=A}, domB/.style={dom=B},
+   domC/.style={dom=C}, domD/.style={dom=D},
+   domE/.style={dom=E}, domF/.style={dom=F},
+   cod/.style={append after command={coordinate[alias=cod#1]}},
+   codA/.style={cod=A}, codB/.style={cod=B},
+   codC/.style={cod=C}, codD/.style={cod=D},
+   codE/.style={cod=E}, codF/.style={cod=F}
+}
+
+\tikzset{
+   oriented WD/.style={%everything after equals replaces "oriented WD" in key.
+      every to/.style={out=0,in=180,draw},
+      label/.style={
+         font=\everymath\expandafter{\the\everymath\scriptstyle},
+         inner sep=0pt,
+         node distance=2pt and -2pt},
+      semithick,
+      node distance=1 and 1,
+      decoration={markings, mark=at position .5 with {\arrow{stealth};}},
+      ar/.style={postaction={decorate}},
+      execute at begin picture={\tikzset{
+         x=\bbx, y=\bby,
+         every fit/.style={inner xsep=\bbx, inner ysep=\bby}}}
+      },
+   bbx/.store in=\bbx,
+   bbx = 1.5cm,
+   bby/.store in=\bby,
+   bby = 1.75ex,
+   bb port sep/.store in=\bbportsep,
+   bb port sep=2,
+   % bb wire sep/.store in=\bbwiresep,
+   % bb wire sep=1.75ex,
+   bb port length/.store in=\bbportlen,
+   bb port length=4pt,
+   bb min width/.store in=\bbminwidth,
+   bb min width=1cm,
+   bb rounded corners/.store in=\bbcorners,
+   bb rounded corners=2pt,
+   bb small/.style={bb port sep=1, bb port length=2.5pt, bbx=.4cm, bb min width=.4cm, bby=.7ex},
+   bb Small/.style={bb port sep=1, bb port length=2.5pt, bbx=.5cm, bb min width=.5cm, bby=1ex},
+   bb/.code 2 args={%When you see this key, run the code below:
+      \pgfmathsetlengthmacro{\bbheight}{\bbportsep * (max(#1,#2)+1) * \bby}
+      \pgfkeysalso{draw,minimum height=\bbheight,minimum width=\bbminwidth,outer sep=0pt,
+         rounded corners=\bbcorners,thick,
+         prefix after command={\pgfextra{\let\fixname\tikzlastnode}},
+         append after command={\pgfextra{\draw
+            \ifnum #1=0{} \else foreach \i in {1,...,#1} {
+               ($(\fixname.north west)!{\i/(#1+1)}!(\fixname.south west)$) +(-\bbportlen,0) coordinate
+               (\fixname_in\i) -- +(\bbportlen,0) coordinate (\fixname_in\i')}\fi %Define the endpoints of tickmarks
+            \ifnum #2=0{} \else foreach \i in {1,...,#2} {
+               ($(\fixname.north east)!{\i/(#2+1)}!(\fixname.south east)$) +(-\bbportlen,0) coordinate
+               (\fixname_out\i') -- +(\bbportlen,0) coordinate (\fixname_out\i)}\fi;
+         }}}
+   },
+   bb name/.style={append after command={\pgfextra{\node[anchor=north] at (\fixname.north) {#1};}}}
+}
+
+\newcommand{\SmallBoxTwoOut}[4]
+{\begin{tikzpicture}[oriented WD, baseline=(Y.south), bb Small]
+\node[inner sep=.1cm] [bb={1}{2}] (X) {$\scriptstyle #4$};
+\draw[label] node[left=.1 of X_in1] {$#1$}
+node[right=.1 of X_out1] {$#2$}
+node[right=.1 of X_out2] {$#3$};
+\end{tikzpicture}}

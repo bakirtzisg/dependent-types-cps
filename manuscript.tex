@@ -99,6 +99,66 @@ in terms of further decompositions, meaning it is possible
 to decompose the mechanical elements of the UAV,
 for example, the airframe can be decomposed to wings, wheels, propeller, et cetera.
 
+\section{Some more type stuff lifted from word graveyard}
+
+Given a linear time-invariant system which inhabits some  $\SmallBox{\mathbb{R}}{\mathbb{R}}{A}$ and is completely characterized by its set of states $S$ and matrices $A,B,C$, we can always first of all make the structural choice to `decompose' the surrounding interface as in \cref{fig:behavior_abstract} using the wiring diagram $(f_\inp,f_\out)\colon L\otimes C\otimes D\to A$, and subsequently determine an object in the pre-image of $(S,A,B,C)\in FA$ under the functor $F(f_\inp,f_\out)$. %well also with the laxator
+This object in the pre-image turns out to actually assign the very same matrices $A, B, C$ to the box $D$ (which is reasonable, being the dynamics? I know you only wanted A to be shared or something) and then leave some flexibility on what we assign on $S$ and $C$ boxes. (we should elaborate on that, by giving at least an example of what specifically S and C can be!)
+
+A possible set of components for the implementation of the sensory system for a flight control system includes a gyroscope,
+an accelerometer, and a pressure sensor, which are usually realized through an inertial measurement unit (IMU).
+Because an IMU has accumulative error it is important
+to either add redundancy; that is, use two IMU devices or add a separate device, for example, a global positioning unit (GPS) to ping and correct this error in IMU measurements.
+Current UAV systems include further functionality,
+for example, by using differential pressure sensors
+or adding a magnetometer to achieve further robustness
+during guided flight.
+Here we will focus on one possible design of the UAV,
+including implementation for the dynamics through control surfaces
+and airframe.
+
+From the controls point of view there is often no input to the sensor.
+This is because sensor is this context measures the system.
+However, while this is true almost always it is not complete
+with respect to the implementation of the system.
+The sensors play a congruent but important role,
+they take measurements of both the system
+and the environment, thereby allowing the plane to actually fly
+even without an internal model of the system within the controller.
+From a systems and software engineering point of view we want to model both
+the estimated state produced by the sensor and the translation
+of the environment to distinct physical measurements
+to digital signals.
+We could envision the type signature for the sensor as
+taking in the environment and state and producing a new state,
+\(\mathtt{L}: e, s \rightarrow s'\).
+The environment \(e\) for the UAV application is a measurement
+of physical quantities corresponding to position, attitude or otherwise orientation, and speed.
+The states, \(s, s'\) represent the attitude and the speed at a particular point in time.
+The choices of what semantics to apply
+to the wires is also a design decision, in this case we have the minimum amount
+of information to fly a fixed-winged plane.
+
+UAV systems are often controlled using proportional--integral--derivative (PID) controller by sending an electric signal to small motors, called servos, which in turn control the position of the plane by manipulating the aileron, rudder, elevator, and throttle. In practice, an external signal either though the ground control station or an actual pilot is given to describe the desireable flight path. In UAVs this is a set of waypoints that is sent outside the UAV. The job of the controller is to take this desired state and apply the correct actions to fly the plane from waypoint A to waypoint B and beyond. An additional predicted state is used for error correction. We can model the controller through the type signature \(\mathtt{C}: (s', d) \rightarrow \text{c} \rightarrow \text{servos.}\)
+
+By controlling the different control surfaces servos ultimate control the plane's \emph{attitude} and correspondingly the pitch, roll, and yaw through \(\mathtt{D}: \text{servos} \rightarrow \text{s.}\)
+
+Dynamics does a lot more in terms of airframe, position, attitude, etc. However, at this level of abstraction it is useful to think about dynamics as taking some input from the electromechanical subsystems, which is captured in the motors that control the plane, and produces a new state.
+This new state in the case of a UAV takes the form of movement of the plane from one waypoint to another.
+The compositional approach to CPS design is flexible in terms of further decompositions, meaning it is possible to decompose the mechanical elements of the UAV, for example, the airframe can be decomposed to wings, wheels, propeller, et cetera.
+
+We could further decompose. A useful example might be the processing unit of the flight control system, which has the following type signature
+\[\mathtt{P1}: \text{orientation, speed} \rightarrow (\text{state}).\]
+ From the point of view of this simplified system
+\[I: attitude\]
+P2:
+
+The interesting thing about these type signatures is that even though they where derived hierarchically from the physics model of the UAV, they correspond -- as might be expected -- to the software implementation of the flight control system.
+These type variables can be used in a number of ways, two of which include decomposing to a software implementation from the modeling language itself and type checking the information in the eventual deployment of the system.
+These type signatures can be augmented by the contracts algebra.
+In the implementation of embedded software this could assure
+that certain conditions are not just type checked for correctness
+but are also constraint in some way by contracts, which in turn represent requirements.
+The vast majority of flight control systems today are software controlled and, therefore, the topic of constraining software implementations in a top-to-bottom fashion is increasingly pertinent.
 
 \bibliography{manuscript.bib}
 \bibliographystyle{plain}
