@@ -9,6 +9,31 @@
 \begin{document}
 \maketitle
 
+\section{Types}
+
+{\color{text_gray} Here I will try
+  to develop some types. Will probably need input and back
+and forth with Carette.}
+
+A cyber-physical system with an associated phase/state space could have the following type:
+
+Type := CPS [
+  states: Set;
+  actions: Set;
+  network: Grph;
+]
+
+Therefore, the networked aspect is Grph-labelled while the states and actions are Set-labelled. This and the hereafter decompositions (which will be discussed relate to Carette~\cite{carette:2012}.
+
+Will probably then say how this relates to:
+sensors, controller, actuators in terms of Drasil~\cite{szymcazk:2016}.
+What I mean by this is that the physical quantities that are produced
+in the ``physical'' portion of cyber-physical will be modeled in terms
+of Drasil, which the ``cyber'' parts will be modeled based on dependent types.
+{\color{text_gray} does that sound good?}
+
+
+\section{Notes}
 These are the three papers we talked about~\cite{szymczak:2016,carette:2012,smith:1999}.
 
 In relation to CPS we talked about vertical decomposition
