@@ -1,0 +1,88 @@
+\documentclass{article}
+
+\input{preamble.tex}
+
+\frenchspacing
+\begin{document}
+
+Categorical systems theory is a mathematical framework for organizing the
+composition and coupling of many different sorts of systems which arise in
+scientific and engineering practice. This formal framework for composition
+allows us to prove \emph{compositionality theorems} which formulate
+behaviors of composite systems in terms of the behaviors of their component systems.
+
+There are many various sorts of systems in use --- differential equations, Moore
+machines, Markov decision processes, labelled transition systems, flow charts,
+port Hamiltonian systems, and more --- and all can be organized into a
+\emph{doubly indexed category}.\footnote{I'm actually going to describe
+  something slightly different than what I do in my book, which I might more
+  accurately describe as an \emph{algebra for a double operad} --- but it's
+  basically the same thing as a monoidal doubly indexed category.} A doubly indexed category of systems consists
+of:
+\begin{itemize}
+  \item A monoidal category of interfaces and composition patters. An
+    interface is an abstract model of the way in which a system can interface
+    with its environment. In most examples, it consists of a finite set of
+    ports, perhaps labeled with the type of data which may pass through the
+    port. These ports may also be separated into inputs and outputs.
+
+    A composition pattern is a way that a finite set of interfaces can be wired
+    together inside another interfact; that is, a pattern by which systems with
+    those interfaces can be composed by interacting through their interfaces. We
+    will discuss both of these notions and examples in Section
+    \ref{sec.interfaces}.
+    \item To every interface $I$, a set $\textbf{Sys}(I)$ of systems with that interface. These
+      systems should all be of a particular sort --- differential equations,
+      Moore machines, etc. --- but we will discuss ways that different sorts of
+      systems can be brought together using \emph{doubly indexed functors} in
+      order to design systems with components of multiple different sorts.
+    \item To every composition pattern $c : I_1,\ldots, I_n \to J$, a function
+      \[
+        c_{\ast} : \textbf{Sys}(I_1) \times \cdots \times \textbf{Sys}(I_n) \to \textbf{Sys}(J)
+      \]
+      which sends systems $S_i$ with interface $I_i$ to their composite
+      $c_{\ast}(S_1, \ldots, S_n)$ which has interface $J$. [Graphically, this
+      can be thought of as filling in the wiring diagram boxes with the systems $S_i$.].
+\end{itemize}
+So far, the sort of structure described has been described for this purpose
+before as a $W$-algebra for an operad $W$ of wiring diagrams (another name for
+composition patterns). But what the notion of doubly indexed category adds is
+the \emph{maps} between systems, which include general simulations of systems by
+others, trajectories, steady states, periodic orbits, and more. Importantly, a
+map of systems can change the interface; for this reason, we need a notion of
+map of interfaces.
+\begin{itemize}
+  \item In addition to composition patterns showing how interfaces $I_1,\ldots,
+    I_n$ may be wired together inside $J$, we also need \emph{maps} of
+    interfaces. In most cases these maps $f : I \to J$ of interfaces are functions from the
+    data types of the ports on $I$ to the data types of the ports on $J$. 
+
+    We furthermore need a notion of \emph{compatibility} between composition
+    patterns and maps of interfaces which tells us when a map $f : I \to I'$ on
+    composent systems induces a map $g : J \to J'$ via the composition patterns
+    $c : I \to J$ and $c' : I' \to J'$. The result is a \emph{double category}
+    of interfaces. We
+    will discuss this further in Section
+    \ref{sec.interfaces}.
+  \item For every map $f : I \to I'$ between interfaces, we need a
+    notion of maps $\phi : S \to S'$ from an $I$-system $S$ to an $I'$-system
+    $S'$ which acts exactly as $f$ on their respective interfaces. This gives us
+    a matrix of sets (or span) $\textbf{Sys}(f) :
+    \textbf{Sys}(I) \times \textbf{Sys}(I') \to \textbf{Set}$ which
+    assigns to an $I$-system $S$ and $I'$-system $S'$ the set
+    $\textbf{Sys}(f)(S, S')$ of maps from $S$ to $S'$. 
+\end{itemize}
+
+\section{Double Categories of Interfaces and Composition Patterns} \label{sec.interfaces}
+
+
+
+\section{Doubly Indexed Categories of Systems}
+
+
+\section{Behaviors of Systems via Representable Functors}
+
+\bibliography{manuscript.bib}
+\bibliographystyle{plain}
+
+\end{document}
